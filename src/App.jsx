@@ -956,7 +956,11 @@ export default function App() {
           repaired[yr] = {
             inc:     yd.inc     ? Object.values(yd.inc).map(m => m ? Object.values(m) : []) : makeEmptyInc(),
             exp:     yd.exp     ? Object.values(yd.exp).map(m => m ? Object.values(m) : []) : makeEmptyExp(),
-            balance: yd.balance ? Object.values(yd.balance) : makeEmptyBalance(),
+            balance: yd.balance ? Object.values(yd.balance).map(b => b ? ({
+              ...b,
+              assets: b.assets ? Object.values(b.assets) : [],
+              debts:  b.debts  ? Object.values(b.debts)  : [],
+            }) : {month:'',assets:[],debts:[],자산총계:0,부채총계:0,순자산:0}) : makeEmptyBalance(),
             gongbi:  yd.gongbi  ? Object.values(yd.gongbi).map(m => m ? {혜정: m.혜정 ? Object.values(m.혜정) : [], 현: m.현 ? Object.values(m.현) : []} : {혜정:[],현:[]}) : makeEmptyGongbi(),
           };
         });
