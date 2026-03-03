@@ -496,9 +496,9 @@ function IncExpTab({yearData, onUpdateInc, onUpdateExp, years, selYear, yearList
 function BalanceTab({balanceMonths, onUpdate, years, selYear, yearList}) {
   const [sel, setSel] = useState(0);
   const [cpConfB, setCpConfB] = useState(false);
-  const mb = balanceMonths[sel];
-  const prevNW = sel>0 ? balanceMonths[sel-1].순자산 : 544134658;
-  const nwDiff = mb.순자산 - prevNW;
+  const mb = balanceMonths?.[sel] || {month:MONTHS[sel],assets:[],debts:[],자산총계:0,부채총계:0,순자산:0};
+  const prevNW = sel>0 ? (balanceMonths?.[sel-1]?.순자산||0) : (balanceMonths?.[11]?.순자산||0);
+  const nwDiff = (mb.순자산||0) - prevNW;
   const getPrevBal = () => {
     if (sel > 0) return balanceMonths[sel-1];
     const py = yearList.filter(y=>y<selYear).slice(-1)[0];
